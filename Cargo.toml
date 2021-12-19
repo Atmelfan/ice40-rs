@@ -15,5 +15,5 @@ embedded-hal = { version = "0.2.6", features = ["unproven"] }
 env_logger = "0.9"
 structopt = { version = "0.3", default-features = false }
 linux-embedded-hal = { version = "0.3", features = ["gpio_cdev"] }
-ftdi-embedded-hal = { path = "../../ftdi-embedded-hal", features = ["ftdi"] }
+ftdi-embedded-hal = { git = "https://github.com/Atmelfan/ftdi-embedded-hal.git", features = ["ftdi"] }
 ftdi = { version = "0.1.3" }
