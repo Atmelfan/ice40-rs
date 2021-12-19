@@ -1,11 +1,14 @@
-use std::{path::PathBuf, thread::sleep, time::Duration, fs};
+use std::{fs, path::PathBuf, thread::sleep, time::Duration};
 use structopt::StructOpt;
 
 use embedded_hal::prelude::*;
 use ftdi_embedded_hal as hal;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "example", about = "Configure a ice40 device over an FTDI2232 USB-SPI bridge.")]
+#[structopt(
+    name = "example",
+    about = "Configure a ice40 device over an FTDI2232 USB-SPI bridge."
+)]
 struct Opt {
     /// Set speed
     #[structopt(short, long, default_value = "3000000", help = "Bus frequency")]
@@ -28,8 +31,7 @@ fn main() {
 
     let opt = Opt::from_args();
 
-    let bitstream = fs::read(opt.binary)
-        .expect("Failed to read binary file");
+    let bitstream = fs::read(opt.binary).expect("Failed to read binary file");
     log::info!("Read binary file, size = {}", bitstream.len());
 
     let device = ftdi::find_by_vid_pid(0x0403, 0x6010)
@@ -46,6 +48,8 @@ fn main() {
 
     log::info!("Configuring device...");
     let mut device = ice40_spi_rs::Fpga::new(spi, ss, done, reset, DummyDelay);
-    device.configure(&bitstream[..]).expect("Failed to configure FPGA");
+    device
+        .configure(&bitstream[..])
+        .expect("Failed to configure FPGA");
     log::info!("done!");
 }

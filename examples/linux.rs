@@ -1,5 +1,5 @@
+use hal::{spidev::SpidevOptions, sysfs_gpio::Direction};
 use std::{fs, path::PathBuf, thread::sleep, time::Duration};
-use hal::{sysfs_gpio::Direction, spidev::SpidevOptions};
 use structopt::StructOpt;
 
 use embedded_hal::prelude::*;
@@ -8,7 +8,12 @@ use linux_embedded_hal as hal;
 #[derive(Debug, StructOpt)]
 #[structopt(name = "example", about = "An example of StructOpt usage.")]
 struct Opt {
-    #[structopt(long, parse(from_os_str), default_value = "/dev/spidev0.0", help = "SPI bus")]
+    #[structopt(
+        long,
+        parse(from_os_str),
+        default_value = "/dev/spidev0.0",
+        help = "SPI bus"
+    )]
     spi: PathBuf,
 
     #[structopt(long, default_value = "8", help = "SS pin")]
@@ -41,7 +46,10 @@ fn main() {
 
     let opt = Opt::from_args();
 
-    let spiopt = SpidevOptions::new().max_speed_hz(opt.frequency).lsb_first(false).build();
+    let spiopt = SpidevOptions::new()
+        .max_speed_hz(opt.frequency)
+        .lsb_first(false)
+        .build();
 
     let bitstream = fs::read(opt.binary).expect("Failed to read binary file");
     log::info!("Read binary file, size = {}", bitstream.len());
