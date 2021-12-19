@@ -1,5 +1,5 @@
 [package]
-name = "ice40-rs"
+name = "ice40"
 version = "0.1.0"
 edition = "2021"
 author = "Gustav Palmqvist <gustavp@gpa-robotics.com>"

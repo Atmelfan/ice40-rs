@@ -47,7 +47,7 @@ fn main() {
     let reset = hal.ad7().unwrap();
 
     log::info!("Configuring device...");
-    let mut device = ice40_spi_rs::Fpga::new(spi, ss, done, reset, DummyDelay);
+    let mut device = ice40::Fpga::new(spi, ss, done, reset, DummyDelay);
     device
         .configure(&bitstream[..])
         .expect("Failed to configure FPGA");
