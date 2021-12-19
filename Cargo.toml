@@ -1,0 +1,19 @@
+[package]
+name = "ice40-rs"
+version = "0.1.0"
+edition = "2021"
+author = "Gustav Palmqvist <gustavp@gpa-robotics.com>"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log = "0.4"
+embedded-hal = { version = "0.2.6", features = ["unproven"] }
+
+[dev-dependencies]
+env_logger = "0.9"
+structopt = { version = "0.3", default-features = false }
+linux-embedded-hal = { version = "0.3", features = ["gpio_cdev"] }
+ftdi-embedded-hal = { path = "../../ftdi-embedded-hal", features = ["ftdi"] }
+ftdi = { version = "0.1.3" }
