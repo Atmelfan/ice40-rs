@@ -2,7 +2,6 @@ use hal::{spidev::SpidevOptions, sysfs_gpio::Direction};
 use std::{fs, path::PathBuf, thread::sleep, time::Duration};
 use structopt::StructOpt;
 
-use embedded_hal::prelude::*;
 use linux_embedded_hal as hal;
 
 #[derive(Debug, StructOpt)]
