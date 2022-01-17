@@ -60,7 +60,7 @@ fn main() {
     ss.set_direction(Direction::Out).unwrap();
     let done = hal::Pin::new(opt.cdone);
     done.export().expect("Failed to export CDONE pin");
-    done.set_direction(Direction::Out).unwrap();
+    done.set_direction(Direction::In).unwrap();
     let reset = hal::Pin::new(opt.creset);
     reset.export().expect("Failed to export CRESET pin");
     reset.set_direction(Direction::Out).unwrap();

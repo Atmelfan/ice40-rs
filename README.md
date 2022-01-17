@@ -23,7 +23,7 @@ Assumes the FTDI circuit is connected like the ice40-breakout board.
 `cargo run --example ftdi -- my_image.bin`
 ```
 ice40-rs/ftdi 0.1.0
-Linux demo
+FTDI demo
 
 USAGE:
     ftdi [OPTIONS] <binary>
