@@ -29,7 +29,10 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: RUSTFLAGS="-D warnings" cargo build --examples
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y libftdi1 libftdi1-dev pkg-config
+          RUSTFLAGS="-D warnings" cargo build --examples
 
   test:
     name: Cargo Test
@@ -39,7 +42,10 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: RUSTFLAGS="-D warnings" cargo test
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y libftdi1 libftdi1-dev pkg-config
+          RUSTFLAGS="-D warnings" cargo build --examples
 
   doc:
     name: Cargo Doc
