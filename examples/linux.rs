@@ -2,11 +2,10 @@ use hal::{spidev::SpidevOptions, sysfs_gpio::Direction};
 use std::{fs, path::PathBuf, thread::sleep, time::Duration};
 use structopt::StructOpt;
 
-use embedded_hal::prelude::*;
 use linux_embedded_hal as hal;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "example", about = "An example of StructOpt usage.")]
+#[structopt(name = concat!(env!("CARGO_PKG_NAME"), "/linux"), about = "Linux demo")]
 struct Opt {
     #[structopt(
         long,
@@ -67,7 +66,7 @@ fn main() {
     reset.set_direction(Direction::Out).unwrap();
 
     log::info!("Configuring device...");
-    let mut device = ice40_spi_rs::Fpga::new(spi, ss, done, reset, DummyDelay);
+    let mut device = ice40_rs::Device::new(spi, ss, done, reset, DummyDelay);
     device
         .configure(&bitstream[..])
         .expect("Failed to configure FPGA");

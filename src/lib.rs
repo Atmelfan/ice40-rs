@@ -16,7 +16,7 @@ pub enum Error<SPIERR, IOERR> {
     ConfigurationFailed,
 }
 
-pub struct Fpga<SPI, SS, DONE, RESET, DELAY> {
+pub struct Device<SPI, SS, DONE, RESET, DELAY> {
     spi: SPI,
     ss: SS,
     done: DONE,
@@ -24,7 +24,7 @@ pub struct Fpga<SPI, SS, DONE, RESET, DELAY> {
     delay: DELAY,
 }
 
-impl<SPI, SS, DONE, RESET, DELAY, SPIERR, IOERR> Fpga<SPI, SS, DONE, RESET, DELAY>
+impl<SPI, SS, DONE, RESET, DELAY, SPIERR, IOERR> Device<SPI, SS, DONE, RESET, DELAY>
 where
     SPI: spi::Write<u8, Error = SPIERR>,
     SS: digital::v2::OutputPin<Error = IOERR>,
@@ -88,7 +88,6 @@ where
         }
         // Wait for 100 (104) clock cycles for CDONE to go high
         self.write(&[0u8; 13]).map_err(|err| Error::BusError(err))?;
-        self.delay.delay_us(10000);
         // CDONE = 1?
         let cdone = self.is_done()?;
         log::debug!("CDONE = {}", cdone);
@@ -103,7 +102,7 @@ where
     }
 }
 
-impl<SPI, SS, DONE, RESET, DELAY, SPIERR> spi::Write<u8> for Fpga<SPI, SS, DONE, RESET, DELAY>
+impl<SPI, SS, DONE, RESET, DELAY, SPIERR> spi::Write<u8> for Device<SPI, SS, DONE, RESET, DELAY>
 where
     SPI: spi::Write<u8, Error = SPIERR>,
 {
@@ -114,7 +113,7 @@ where
     }
 }
 
-impl<SPI, SS, DONE, RESET, DELAY, SPIERR> spi::Transfer<u8> for Fpga<SPI, SS, DONE, RESET, DELAY>
+impl<SPI, SS, DONE, RESET, DELAY, SPIERR> spi::Transfer<u8> for Device<SPI, SS, DONE, RESET, DELAY>
 where
     SPI: spi::Transfer<u8, Error = SPIERR>,
 {

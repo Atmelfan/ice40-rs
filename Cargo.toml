@@ -2,7 +2,6 @@
 name = "ice40-rs"
 version = "0.1.0"
 edition = "2021"
-author = "Gustav Palmqvist <gustavp@gpa-robotics.com>"
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -15,5 +14,13 @@ embedded-hal = { version = "0.2.6", features = ["unproven"] }
 env_logger = "0.9"
 structopt = { version = "0.3", default-features = false }
 linux-embedded-hal = { version = "0.3", features = ["gpio_cdev"] }
-ftdi-embedded-hal = { git = "https://github.com/Atmelfan/ftdi-embedded-hal.git", features = ["ftdi"] }
-ftdi = { version = "0.1.3" }
+
+[dev-dependencies.ftdi-embedded-hal]
+git = "https://github.com/Atmelfan/ftdi-embedded-hal.git"
+features = ["libftd2xx-static", "unproven"]
+
+[dependencies.libftd2xx]
+version = "0.32"
+# statically link the vendor library, defaults to dynamic if not set
+# this will make things "just work" on Linux and Windows
+features = ["static"]

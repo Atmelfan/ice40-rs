@@ -1,14 +1,11 @@
 use std::{fs, path::PathBuf, thread::sleep, time::Duration};
 use structopt::StructOpt;
 
-use embedded_hal::prelude::*;
 use ftdi_embedded_hal as hal;
 
 #[derive(Debug, StructOpt)]
-#[structopt(
-    name = "example",
-    about = "Configure a ice40 device over an FTDI2232 USB-SPI bridge."
-)]
+#[structopt(name = concat!(env!("CARGO_PKG_NAME"), "/ftdi"), about = "FTDI demo")]
+
 struct Opt {
     /// Set speed
     #[structopt(short, long, default_value = "3000000", help = "Bus frequency")]
@@ -34,9 +31,9 @@ fn main() {
     let bitstream = fs::read(opt.binary).expect("Failed to read binary file");
     log::info!("Read binary file, size = {}", bitstream.len());
 
-    let device = ftdi::find_by_vid_pid(0x0403, 0x6010)
-        .interface(ftdi::Interface::A)
-        .open()
+    let device: libftd2xx::Ft2232h = libftd2xx::Ftdi::new()
+        .unwrap()
+        .try_into()
         .expect("Failed to open device");
     log::info!("Connected to FT2232");
 
@@ -47,7 +44,7 @@ fn main() {
     let reset = hal.ad7().unwrap();
 
     log::info!("Configuring device...");
-    let mut device = ice40_spi_rs::Fpga::new(spi, ss, done, reset, DummyDelay);
+    let mut device = ice40_rs::Device::new(spi, ss, done, reset, DummyDelay);
     device
         .configure(&bitstream[..])
         .expect("Failed to configure FPGA");
