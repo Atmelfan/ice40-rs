@@ -12,7 +12,19 @@ See technical note [TN1248 - iCE40 Programming and Configuration](https://www.la
 ice40-rs = { git = "https://github.com/Atmelfan/ice40-rs.git" }
 ```
 
+# Features
+* `lzss` - Support bitestreams compressed using [LZSS](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski) using [lzss](https://github.com/alexkazik/lzss).
+
 # Example
+
+```rust
+// Configure device with bitstream
+let mut device = ice40::Device::new(spi, ss, done, reset, DummyDelay);
+device
+    .configure(&bitstream[..])
+    .expect("Failed to configure FPGA");
+```
+
 The examples folder contains a utility for configuring a device using linux and ftdi embedded-hal.
 
 You can use them with the following commands:
