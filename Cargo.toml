@@ -16,8 +16,8 @@ structopt = { version = "0.3", default-features = false }
 linux-embedded-hal = { version = "0.3", features = ["gpio_cdev"] }
 
 [dev-dependencies.ftdi-embedded-hal]
-git = "https://github.com/Atmelfan/ftdi-embedded-hal.git"
-features = ["libftd2xx-static", "unproven"]
+version = "0.11.0"
+features = ["libftd2xx-static"]
 
 [dependencies.libftd2xx]
 version = "0.32"
