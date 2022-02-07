@@ -1,6 +1,6 @@
 [package]
 name = "ice40"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 license = "MIT"
 description = "An embedded-hal driver for configuration of ice40 FPGA devices."

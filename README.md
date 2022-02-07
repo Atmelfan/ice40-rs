@@ -9,7 +9,7 @@ See technical note [TN1248 - iCE40 Programming and Configuration](https://www.la
 # Quickstart
 ```toml
 [dependencies]
-ice40-rs = { git = "https://github.com/Atmelfan/ice40-rs.git" }
+ice40-rs = "0.2.0"
 ```
 
 # Features
