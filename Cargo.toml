@@ -3,6 +3,10 @@ name = "ice40"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+description = "An embedded-hal driver for configuration of ice40 FPGA devices."
+repository = "https://github.com/Atmelfan/ice40-rs"
+keywords = ["embedded", "driver", "embedded-hal", "ice40", "fpga"]
+categories = ["embedded"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -19,7 +23,7 @@ linux-embedded-hal = { version = "0.3", features = ["gpio_cdev"] }
 version = "0.11.0"
 features = ["libftd2xx-static"]
 
-[dependencies.libftd2xx]
+[dev-dependencies.libftd2xx]
 version = "0.32"
 # statically link the vendor library, defaults to dynamic if not set
 # this will make things "just work" on Linux and Windows
