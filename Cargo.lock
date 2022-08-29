@@ -196,9 +196,9 @@ checksum = "efaa7b300f3b5fe8eb6bf21ce3895e1751d9665086af2d64b42f19701015ff4f"
 
 [[package]]
 name = "libftd2xx"
-version = "0.32.0"
+version = "0.32.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f4e8c69a2080006df1b52908e82269d8e3aa3f2cb0fa9b94d529278455ae4a2"
+checksum = "bd6ccf251ff9cb123d9b7ce2ee61d9f844e3b09db8025c43a36fd30699e82157"
 dependencies = [
  "ftdi-mpsse",
  "libftd2xx-ffi",
