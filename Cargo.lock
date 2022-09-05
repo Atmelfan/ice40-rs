@@ -80,6 +80,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "embedded-hal"
+version = "1.0.0-alpha.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c3babfc7fd332142a0b11aebf592992f211f4e01b6222fb04b03aba1bd80018d"
+dependencies = [
+ "nb 1.0.0",
+]
+
+[[package]]
 name = "env_logger"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -94,11 +103,12 @@ dependencies = [
 
 [[package]]
 name = "ftdi-embedded-hal"
-version = "0.11.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4442dad51abce8a5ce64e0bd70f9df585b3c4a9792eef6d06573a10a440c2cc6"
+checksum = "239fbeb68c73f2885faaa7dcc3f98b97a8afeca2013758dcf36b448caf2b71cd"
 dependencies = [
- "embedded-hal",
+ "embedded-hal 0.2.7",
+ "embedded-hal 1.0.0-alpha.8",
  "ftdi-mpsse",
  "libftd2xx",
  "nb 1.0.0",
@@ -164,7 +174,7 @@ dependencies = [
 name = "ice40"
 version = "0.2.0"
 dependencies = [
- "embedded-hal",
+ "embedded-hal 0.2.7",
  "env_logger",
  "ftdi-embedded-hal",
  "libftd2xx",
@@ -223,7 +233,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61861762ac50cb746e6137f1aeb2ca9812e1b1f2b923cfc83550befdc0b9915d"
 dependencies = [
  "cast",
- "embedded-hal",
+ "embedded-hal 0.2.7",
  "gpio-cdev",
  "i2cdev",
  "nb 0.1.3",
