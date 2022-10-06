@@ -180,7 +180,7 @@ dependencies = [
 
 [[package]]
 name = "ice40"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "embedded-hal 0.2.7",
  "env_logger",
