@@ -1,6 +1,6 @@
 [package]
 name = "ice40"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 license = "MIT"
 description = "An embedded-hal driver for configuration of ice40 FPGA devices."
@@ -12,7 +12,7 @@ categories = ["embedded"]
 
 [dependencies]
 log = "0.4"
-embedded-hal = { version = "0.2.6", features = ["unproven"] }
+embedded-hal = { version = "0.2", features = ["unproven"] }
 
 [dev-dependencies]
 env_logger = "0.9"
