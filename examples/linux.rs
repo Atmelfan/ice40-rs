@@ -66,9 +66,9 @@ fn main() {
     reset.set_direction(Direction::Out).unwrap();
 
     log::info!("Configuring device...");
-    let mut device = ice40::Device::new(spi, ss, done, reset, DummyDelay);
+    let mut device = ice40::Device::new(spi, ss, done, reset);
     device
-        .configure(&bitstream[..])
+        .configure(&mut DummyDelay, &bitstream[..])
         .expect("Failed to configure FPGA");
     log::info!("done!");
 }

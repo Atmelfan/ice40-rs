@@ -16,29 +16,26 @@ pub enum Error<SPIERR, IOERR> {
     ConfigurationFailed,
 }
 
-pub struct Device<SPI, SS, DONE, RESET, DELAY> {
+pub struct Device<SPI, SS, DONE, RESET> {
     spi: SPI,
     ss: SS,
     done: DONE,
     reset: RESET,
-    delay: DELAY,
 }
 
-impl<SPI, SS, DONE, RESET, DELAY, SPIERR, IOERR> Device<SPI, SS, DONE, RESET, DELAY>
+impl<SPI, SS, DONE, RESET, SPIERR, IOERR> Device<SPI, SS, DONE, RESET>
 where
     SPI: spi::Write<u8, Error = SPIERR>,
     SS: digital::v2::OutputPin<Error = IOERR>,
     DONE: digital::v2::InputPin<Error = IOERR>,
     RESET: digital::v2::OutputPin<Error = IOERR>,
-    DELAY: delay::DelayUs<u16>,
 {
-    pub fn new(spi: SPI, ss: SS, done: DONE, reset: RESET, delay: DELAY) -> Self {
+    pub fn new(spi: SPI, ss: SS, done: DONE, reset: RESET) -> Self {
         Self {
             spi,
             ss,
             done,
             reset,
-            delay,
         }
     }
 
@@ -64,18 +61,22 @@ where
 
     /// Configure the device throough slave SPI interface.
     /// See [iCE40 Programming and Configuration Technical Note](https://www.latticesemi.com/-/media/LatticeSemi/Documents/ApplicationNotes/IK/FPGA-TN-02001-3-3-iCE40-Programming-Configuration.ashx?document_id=46502)
-    pub fn configure(&mut self, bitstream: &[u8]) -> Result<(), Error<SPIERR, IOERR>> {
+    pub fn configure<DELAY: delay::DelayUs<u16>>(
+        &mut self,
+        delay: &mut DELAY,
+        bitstream: &[u8],
+    ) -> Result<(), Error<SPIERR, IOERR>> {
         // Drive CRESET_B = 0
         log::debug!("Resetting device...");
         self.set_reset_low()?;
         // Drive SPI_SS_B = 0, SPI_SCK = 1
         self.set_ss_low()?;
         // Wait a minimum of 200ns
-        self.delay.delay_us(1);
+        delay.delay_us(1);
         // Release CRESET_B or drive CRESET_B = 1
         self.set_reset_high()?;
         // Wait a minimum of 1200µs to clear internal configuration memory
-        self.delay.delay_us(1200);
+        delay.delay_us(1200);
         // Set SPI_SS_B = 1
         // Send 8 dummy clocks
         self.set_ss_high()?;
@@ -102,7 +103,7 @@ where
     }
 }
 
-impl<SPI, SS, DONE, RESET, DELAY, SPIERR> spi::Write<u8> for Device<SPI, SS, DONE, RESET, DELAY>
+impl<SPI, SS, DONE, RESET, SPIERR> spi::Write<u8> for Device<SPI, SS, DONE, RESET>
 where
     SPI: spi::Write<u8, Error = SPIERR>,
 {
@@ -113,7 +114,7 @@ where
     }
 }
 
-impl<SPI, SS, DONE, RESET, DELAY, SPIERR> spi::Transfer<u8> for Device<SPI, SS, DONE, RESET, DELAY>
+impl<SPI, SS, DONE, RESET, SPIERR> spi::Transfer<u8> for Device<SPI, SS, DONE, RESET>
 where
     SPI: spi::Transfer<u8, Error = SPIERR>,
 {
