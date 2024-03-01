@@ -106,4 +106,9 @@ where
         // Done
         Ok(())
     }
+
+    /// Breaks down this Device into its SPI bus and pins
+    pub fn release(self) -> (SPI, SS, DONE, RESET) {
+        (self.spi, self.ss, self.done, self.reset)
+    }
 }
