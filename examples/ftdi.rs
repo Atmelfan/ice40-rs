@@ -17,9 +17,9 @@ struct Opt {
 }
 
 struct DummyDelay;
-impl embedded_hal::blocking::delay::DelayUs<u16> for DummyDelay {
-    fn delay_us(&mut self, us: u16) {
-        sleep(Duration::from_micros(us.into()))
+impl embedded_hal::delay::DelayNs for DummyDelay {
+    fn delay_ns(&mut self, ns: u32) {
+        sleep(Duration::from_nanos(ns.into()))
     }
 }
 
