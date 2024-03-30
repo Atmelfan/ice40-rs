@@ -28,3 +28,6 @@ version = "0.32"
 # statically link the vendor library, defaults to dynamic if not set
 # this will make things "just work" on Linux and Windows
 features = ["static"]
+
+[workspace]
+members = ["examples/stm32h743"]
