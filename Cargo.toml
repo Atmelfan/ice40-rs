@@ -30,4 +30,4 @@ version = "0.32"
 features = ["static"]
 
 [workspace]
-members = ["examples/stm32h743"]
+members = ["examples/stm32f411", "examples/stm32h743"]

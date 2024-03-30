@@ -1,0 +1,22 @@
+[package]
+name = "stm32f411_example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cortex-m = "0.7.7"
+cortex-m-rt = "0.7.3"
+panic-rtt-target = "0.1.2"
+rtt-target = { version = "0.5.0", features = [] }
+
+ice40 = { path = "../../" }
+
+[dependencies.stm32f4xx-hal]
+version = "0.20.0"
+features = ["stm32f411"]
+
+# this lets you use `cargo fix`!
+[[bin]]
+name = "stm32f411_example"
+test = false
+bench = false
