@@ -9,11 +9,8 @@ See technical note [TN1248 - iCE40 Programming and Configuration](https://www.la
 # Quickstart
 ```toml
 [dependencies]
-ice40-rs = "0.2.0"
+ice40-rs = "0.3"
 ```
-
-# Features
-* `lzss` - Support bitestreams compressed using [LZSS](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski) using [lzss](https://github.com/alexkazik/lzss).
 
 # Example
 
