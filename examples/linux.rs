@@ -34,9 +34,9 @@ struct Opt {
 }
 
 struct DummyDelay;
-impl embedded_hal::blocking::delay::DelayUs<u16> for DummyDelay {
-    fn delay_us(&mut self, us: u16) {
-        sleep(Duration::from_micros(us.into()))
+impl embedded_hal::delay::DelayNs for DummyDelay {
+    fn delay_ns(&mut self, ns: u32) {
+        sleep(Duration::from_nanos(ns.into()))
     }
 }
 
@@ -53,15 +53,15 @@ fn main() {
     let bitstream = fs::read(opt.binary).expect("Failed to read binary file");
     log::info!("Read binary file, size = {}", bitstream.len());
 
-    let mut spi = hal::Spidev::open(opt.spi).expect("Failed to open SPI bus");
+    let mut spi = hal::SpidevBus::open(opt.spi).expect("Failed to open SPI bus");
     spi.configure(&spiopt).expect("Failed to configure SPI bus");
-    let ss = hal::Pin::new(opt.ss);
+    let ss = hal::SysfsPin::new(opt.ss);
     ss.export().expect("Failed to export SS pin");
     ss.set_direction(Direction::Out).unwrap();
-    let done = hal::Pin::new(opt.cdone);
+    let done = hal::SysfsPin::new(opt.cdone);
     done.export().expect("Failed to export CDONE pin");
     done.set_direction(Direction::In).unwrap();
-    let reset = hal::Pin::new(opt.creset);
+    let reset = hal::SysfsPin::new(opt.creset);
     reset.export().expect("Failed to export CRESET pin");
     reset.set_direction(Direction::Out).unwrap();
 

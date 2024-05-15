@@ -1,0 +1,27 @@
+[package]
+name = "stm32h743_example"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cortex-m = "0.7.7"
+cortex-m-rt = "0.7.3"
+panic-rtt-target = "0.1.2"
+rtt-target = "0.5.0"
+
+# stm32h7xx-hal doesn't yet have a release that supports embedded-hal 1.0
+[dependencies.stm32h7xx-hal]
+git = "https://github.com/stm32-rs/stm32h7xx-hal.git"
+rev = "5cfff1d05fa92eed1491e733d86a3271a912536e"
+features = ["stm32h743", "rt"]
+
+[dependencies.ice40]
+path = "../.."
+
+# this lets you use `cargo fix`!
+[[bin]]
+name = "stm32h743_example"
+test = false
+bench = false
