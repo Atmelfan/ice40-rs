@@ -20,7 +20,7 @@ structopt = { version = "0.3", default-features = false }
 linux-embedded-hal = "0.4"
 
 [dev-dependencies.ftdi-embedded-hal]
-version = "0.21.0"
+version = "0.22.0"
 features = ["libftd2xx-static"]
 
 [dev-dependencies.libftd2xx]
