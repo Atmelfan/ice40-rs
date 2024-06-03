@@ -12,7 +12,7 @@ rtt-target = { version = "0.5.0", features = [] }
 ice40 = { path = "../../" }
 
 [dependencies.stm32f4xx-hal]
-version = "0.20.0"
+version = "0.21.0"
 features = ["stm32f411"]
 
 # this lets you use `cargo fix`!
